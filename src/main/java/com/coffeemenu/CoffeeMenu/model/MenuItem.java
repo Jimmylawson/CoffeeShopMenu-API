@@ -5,10 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
 
 @Entity
-@Table(name ="menu_items")
 @RequiredArgsConstructor
 @Getter @Setter
 public class MenuItem {
