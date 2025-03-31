@@ -20,7 +20,6 @@ public class MenuItem {
     private String description;
     private double price;
     @Enumerated(EnumType.STRING)
-    @NotBlank
     private Category category;
 
     private boolean available;
