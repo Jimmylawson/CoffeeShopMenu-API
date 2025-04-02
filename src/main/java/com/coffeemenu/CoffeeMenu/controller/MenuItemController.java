@@ -9,10 +9,12 @@ import com.coffeemenu.CoffeeMenu.service.MenuItemService;
 import com.coffeemenu.CoffeeMenu.utils.MenuItemMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +28,6 @@ public class MenuItemController {
     public ResponseEntity<List<MenuItemResponse>> getAllMenuItems(){
         var menuItems = menuItemService.findAll();
 
-        if(menuItems.isEmpty()){
-            throw new NotFoundException("Menu Items not found");
-        }
 
        var responseList = menuItems.stream()
                .map(MenuItemMapper::toResponse)
