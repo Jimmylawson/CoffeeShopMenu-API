@@ -8,9 +8,13 @@ import com.coffeemenu.CoffeeMenu.mapper.MenuItemMapper;
 import com.coffeemenu.CoffeeMenu.model.MenuItem;
 import com.coffeemenu.CoffeeMenu.service.MenuItemServiceImpl;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
+import org.hibernate.sql.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +30,15 @@ public class MenuItemController {
     private final MenuItemServiceImpl menuItemService;
     private final MenuItemMapper menuItemMapper;
 
+
+    @Operation(
+            summary = "Get all menu items",
+            description = "Retrieve a list of all menu items"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Items found"),
+            @ApiResponse(responseCode = "404", description = "No items found")
+    })
     @GetMapping("")
     public ResponseEntity<List<MenuItemResponse>> getAllMenuItems(){
         var menuItems = menuItemService.findAll();
@@ -36,7 +49,14 @@ public class MenuItemController {
 
         return ResponseEntity.ok(responseList);
     }
-
+    @Operation(
+            summary = "Get menu item by ID",
+            description = "Retrieve a single item by its ID"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Item found"),
+            @ApiResponse(responseCode = "404", description = "Item not found")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<MenuItemResponse> getItemById(@PathVariable Long id){
         var menuItem = menuItemService.findById(id).orElseThrow(()->
@@ -45,6 +65,15 @@ public class MenuItemController {
         return ResponseEntity.ok(menuItemMapper.toResponse(menuItem));
     }
 
+
+    @Operation(
+            summary = "Create a new menu item",
+            description = "Add a new item to the menu"
+    )
+    @ApiResponses(value ={
+            @ApiResponse(responseCode = "201", description = "Item created"),
+            @ApiResponse(responseCode ="400",description="Invalid input")
+    })
     @PostMapping("")
     public ResponseEntity<MenuItemResponse> createMenuItem(@Valid @RequestBody MenuItemRequest menuItemRequest){
         var menuItem = menuItemService.save(menuItemRequest);
@@ -53,6 +82,15 @@ public class MenuItemController {
     }
 
 
+
+    @Operation(
+            summary ="Update am existing menu item",
+            description = "Update the details of an existing item"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Item updated"),
+        @ApiResponse(responseCode = "404", description = "Item not found"),
+    })
     @PutMapping("/{id}")
     public ResponseEntity<MenuItemResponse> updateMenuItem(@PathVariable Long id,@Valid @RequestBody MenuItemRequest menuItemRequest){
         Optional<MenuItem> findExistingItem = menuItemService.findById(id);
@@ -71,7 +109,14 @@ public class MenuItemController {
         );
 
     }
-
+    @Operation(
+            summary = "Delete a menu item",
+            description = "Remove an item from the menu"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Item deleted"),
+            @ApiResponse(responseCode = "404", description = "Item not found")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteItem(@PathVariable Long id){
         Optional<MenuItem> item = menuItemService.findById(id);
