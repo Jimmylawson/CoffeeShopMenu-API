@@ -1,33 +1,41 @@
 # Coffee Menu API ☕
 ![status](https://img.shields.io/badge/status-in--progress-yellow)
 
-A RESTful API to manage coffee shop menu items...
+A simple, production-ready RESTful API for managing coffee shop menu items — built with Spring Boot, MySQL, and documented using Swagger OpenAPI.
 
-A simple RESTful API for managing coffee shop menu items.
+---
 
-## Features
-- Add, update, delete, and retrieve menu items
-- Input validation with Spring Boot
-- Uses MySQL and Spring Data JPA
+## 🚀 Features
 
-## Endpoints
+- ✅ Add, update, delete, and retrieve menu items
+- ✅ Input validation using Spring Boot annotations
+- ✅ Uses MySQL with Spring Data JPA for persistence
+- ✅ Auto-generated and interactive API docs via Swagger UI
+- 🔒 Security-ready architecture (JWT support coming soon)
 
-### `POST /menu-items`
-Create a new menu item
+---
 
-### `GET /menu-items`
-Retrieve all menu items
+## 📘 API Documentation (Swagger UI)
 
-### `GET /menu-items/{id}`
-Get a single menu item by ID
+Swagger UI is available at:
+You can test each endpoint interactively and view schema definitions.
 
-### `PUT /menu-items/{id}`
-Update an existing item
+---
 
-### `DELETE /menu-items/{id}`
-Delete an item by ID
+## 🛠️ Endpoints
 
-## Sample JSON
+| Method | Endpoint                 | Description                |
+|--------|--------------------------|----------------------------|
+| POST   | `/api/v1/menu-items`     | Create a new menu item     |
+| GET    | `/api/v1/menu-items`     | Retrieve all menu items    |
+| GET    | `/api/v1/menu-items/{id}`| Get a menu item by ID      |
+| PUT    | `/api/v1/menu-items/{id}`| Update a menu item         |
+| DELETE | `/api/v1/menu-items/{id}`| Delete a menu item by ID   |
+
+---
+
+## 📦 Sample Request Body
+
 ```json
 {
   "name": "Vanilla Latte",
@@ -36,4 +44,10 @@ Delete an item by ID
   "category": "LATTE",
   "available": true
 }
+
+## 👨‍💻 Author
+**Jimmy Dev**  
+📧 [jimoseipeace2bb@gmail.com](mailto:jimoseipeace2bb@gmail.com)
+
+
 
