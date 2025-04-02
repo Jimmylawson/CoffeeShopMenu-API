@@ -9,6 +9,7 @@ import lombok.Setter;
 
 @Entity
 @RequiredArgsConstructor
+@Table(name = "menu_item")
 @Getter @Setter
 public class MenuItem {
     @Id
