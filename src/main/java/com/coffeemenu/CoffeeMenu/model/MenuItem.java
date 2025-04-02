@@ -10,7 +10,8 @@ import lombok.Setter;
 @Entity
 @RequiredArgsConstructor
 @Table(name = "menu_item")
-@Getter @Setter
+@Getter
+@Setter
 public class MenuItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
