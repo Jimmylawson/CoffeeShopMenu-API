@@ -17,7 +17,9 @@ A simple, production-ready RESTful API for managing coffee shop menu items — b
 
 ## 📘 API Documentation (Swagger UI)
 
-Swagger UI is available at:
+To explore and test the API, run the application and visit:
+
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 You can test each endpoint interactively and view schema definitions.
 
 ---
