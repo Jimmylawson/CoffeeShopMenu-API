@@ -91,6 +91,8 @@ public class MenuItemController {
         @ApiResponse(responseCode = "200", description = "Item updated"),
         @ApiResponse(responseCode = "404", description = "Item not found"),
     })
+
+
     @PutMapping("/{id}")
     public ResponseEntity<MenuItemResponse> updateMenuItem(@PathVariable Long id,@Valid @RequestBody MenuItemRequest menuItemRequest){
         Optional<MenuItem> findExistingItem = menuItemService.findById(id);
@@ -98,6 +100,27 @@ public class MenuItemController {
 
         /// updating the item user id
         MenuItem menuItem = findExistingItem.get();
+        /// Use mapper to copy fields from the request to the existing item
+        menuItemMapper.updateMenuItemFromRequest(menuItemRequest, menuItem);
+
+        /// saving it to the db
+        var updateItem = menuItemService.update(menuItem.getId(),menuItemRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(
+                menuItemMapper.toResponse(updateItem)
+        );
+
+    }
+
+    /// Patch endpoint to update a  field
+    @PatchMapping("/{id}")
+    public ResponseEntity<MenuItemResponse> patchMenuItem(@PathVariable Long id,@Valid @RequestBody MenuItemRequest menuItemRequest){
+        Optional<MenuItem> findExistingItem = menuItemService.findById(id);
+        if(findExistingItem.isEmpty()) throw new NotFoundException("User with ID " + id + " not found");
+
+        /// updating the item user id
+        MenuItem menuItem = findExistingItem.get();
+
         /// Use mapper to copy fields from the request to the existing item
         menuItemMapper.updateMenuItemFromRequest(menuItemRequest, menuItem);
 

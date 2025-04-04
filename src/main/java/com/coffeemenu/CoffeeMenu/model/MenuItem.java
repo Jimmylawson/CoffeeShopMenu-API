@@ -2,13 +2,12 @@ package com.coffeemenu.CoffeeMenu.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 @Entity
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "menu_item")
 @Setter
 @Getter
@@ -16,13 +15,14 @@ public class MenuItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+//    @NotBlank
     private String name;
-    @NotBlank
+
+//    @NotBlank
     private String description;
-    private double price;
+    private Double price;
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    private boolean available;
+    private Boolean available;
 }
