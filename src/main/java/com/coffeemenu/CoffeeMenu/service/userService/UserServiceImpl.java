@@ -1,9 +1,8 @@
 package com.coffeemenu.CoffeeMenu.service.userService;
 
 import com.coffeemenu.CoffeeMenu.exception.UserNotFoundException;
-import com.coffeemenu.CoffeeMenu.model.User;
+import com.coffeemenu.CoffeeMenu.model.user.User;
 import com.coffeemenu.CoffeeMenu.repository.UserRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

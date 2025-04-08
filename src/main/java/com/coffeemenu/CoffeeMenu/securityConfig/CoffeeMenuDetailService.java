@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +33,9 @@ public class CoffeeMenuDetailService implements UserDetailsService {
                 .orElseThrow(() -> new UserNotFoundException("User with username " + username + " not found"));
 
 
-        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getRoles()));
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .collect(Collectors.toList());
 
         return new User(user.getUsername(),user.getPassword(),authorities);
     }

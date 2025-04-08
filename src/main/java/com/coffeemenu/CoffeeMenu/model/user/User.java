@@ -1,23 +1,29 @@
-package com.coffeemenu.CoffeeMenu.model;
+package com.coffeemenu.CoffeeMenu.model.user;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @Table(name="users")
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Getter @Setter
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
-    private String roles;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
 }

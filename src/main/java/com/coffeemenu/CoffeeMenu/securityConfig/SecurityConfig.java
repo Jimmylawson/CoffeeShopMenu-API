@@ -8,6 +8,7 @@ import org.springframework.security.authentication.password.CompromisedPasswordC
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
 
@@ -20,7 +21,7 @@ public class SecurityConfig {
             http
                     .csrf(c->c.disable())
                     .authorizeHttpRequests(request->request
-                            .requestMatchers(HttpMethod.GET, "/api/v1/menu-items/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/v1/menu-items/**", "/api/v1/users/**").permitAll()
                             .requestMatchers("/api/v1/menu-items/**"
                             ).hasRole("ADMIN")
                             .anyRequest().authenticated()
@@ -38,8 +39,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public BCrypt passwordEncoder(){
-        return new BCrypt();
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
 }

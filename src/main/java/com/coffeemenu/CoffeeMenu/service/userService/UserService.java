@@ -1,6 +1,6 @@
 package com.coffeemenu.CoffeeMenu.service.userService;
 
-import com.coffeemenu.CoffeeMenu.model.User;
+import com.coffeemenu.CoffeeMenu.model.user.User;
 
 import java.util.Optional;
 
