@@ -4,6 +4,7 @@ package com.coffeemenu.CoffeeMenu.mapper;
 import com.coffeemenu.CoffeeMenu.dto.MenuItemRequest;
 import com.coffeemenu.CoffeeMenu.dto.MenuItemResponse;
 import com.coffeemenu.CoffeeMenu.model.MenuItem;
+import com.coffeemenu.CoffeeMenu.model.User;
 import org.mapstruct.*;
 
 import java.util.List;
