@@ -18,7 +18,7 @@ public class OpenAPIConfig {
                         .description("A REST API to manage coffee menu items.")
                                 .contact( new Contact()
                                         .name("Jimmy Dev")
-                                        .email("jimoseipeace2bb@gmail.com")
+                                        .email("jim72@gmail.com")
                                         .url("https://github.com/Jimmylawson"))
                 );
     }
