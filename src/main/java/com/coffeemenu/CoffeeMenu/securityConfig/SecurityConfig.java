@@ -21,7 +21,9 @@ public class SecurityConfig {
             http
                     .csrf(c->c.disable())
                     .authorizeHttpRequests(request->request
-                            .requestMatchers(HttpMethod.GET, "/api/v1/menu-items/**", "/api/v1/users/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/v1/menu-items/**", "/api/v1/users/**"
+                                    ).permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/v1/user","/api/v1/user-admin","/api/v1/login").permitAll()
                             .requestMatchers("/api/v1/menu-items/**"
                             ).hasRole("ADMIN")
                             .anyRequest().authenticated()

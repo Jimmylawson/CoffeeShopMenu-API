@@ -1,4 +1,4 @@
-package com.coffeemenu.CoffeeMenu.model;
+package com.coffeemenu.CoffeeMenu.model.menuItem;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

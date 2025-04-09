@@ -1,6 +1,9 @@
 package com.coffeemenu.CoffeeMenu.service.userService;
 
+import com.coffeemenu.CoffeeMenu.dto.userdto.UserRequestDto;
+import com.coffeemenu.CoffeeMenu.dto.userdto.UserResponseDto;
 import com.coffeemenu.CoffeeMenu.exception.UserNotFoundException;
+import com.coffeemenu.CoffeeMenu.mapper.UserMapper;
 import com.coffeemenu.CoffeeMenu.model.user.User;
 import com.coffeemenu.CoffeeMenu.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,7 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
     public Optional<User> findById(Long id) {
@@ -24,8 +28,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User save(User user) {
-        return userRepository.save(user);
+    public User save(UserRequestDto user) {
+        return userRepository.save(userMapper.toEntity(user));
     }
 
     @Override

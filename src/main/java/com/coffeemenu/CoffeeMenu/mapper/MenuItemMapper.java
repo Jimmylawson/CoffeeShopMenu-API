@@ -1,9 +1,9 @@
 package com.coffeemenu.CoffeeMenu.mapper;
 
 
-import com.coffeemenu.CoffeeMenu.dto.MenuItemRequest;
-import com.coffeemenu.CoffeeMenu.dto.MenuItemResponse;
-import com.coffeemenu.CoffeeMenu.model.MenuItem;
+import com.coffeemenu.CoffeeMenu.dto.menudto.MenuItemRequest;
+import com.coffeemenu.CoffeeMenu.dto.menudto.MenuItemResponse;
+import com.coffeemenu.CoffeeMenu.model.menuItem.MenuItem;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring") /// This will make it a spring bean

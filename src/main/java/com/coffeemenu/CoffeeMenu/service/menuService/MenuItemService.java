@@ -1,8 +1,7 @@
-package com.coffeemenu.CoffeeMenu.service;
+package com.coffeemenu.CoffeeMenu.service.menuService;
 
-import com.coffeemenu.CoffeeMenu.dto.MenuItemRequest;
-import com.coffeemenu.CoffeeMenu.dto.MenuItemResponse;
-import com.coffeemenu.CoffeeMenu.model.MenuItem;
+import com.coffeemenu.CoffeeMenu.dto.menudto.MenuItemRequest;
+import com.coffeemenu.CoffeeMenu.model.menuItem.MenuItem;
 
 import java.util.List;
 import java.util.Optional;

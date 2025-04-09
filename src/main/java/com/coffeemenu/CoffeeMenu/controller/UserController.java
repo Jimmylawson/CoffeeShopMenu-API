@@ -1,10 +1,16 @@
 package com.coffeemenu.CoffeeMenu.controller;
 
+import com.coffeemenu.CoffeeMenu.dto.userdto.UserRequestDto;
+import com.coffeemenu.CoffeeMenu.dto.userdto.UserResponseDto;
+import com.coffeemenu.CoffeeMenu.exception.UserNotFoundException;
+import com.coffeemenu.CoffeeMenu.mapper.UserMapper;
 import com.coffeemenu.CoffeeMenu.model.user.Role;
 import com.coffeemenu.CoffeeMenu.model.user.User;
 import com.coffeemenu.CoffeeMenu.service.userService.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +26,29 @@ import java.util.Set;
 public class UserController {
     private final UserServiceImpl userServiceImpl;
    private final PasswordEncoder passwordEncoder;
+   private final UserMapper userMapper;
+
+   @PostMapping("/login")
+   public ResponseEntity<?> login(@Valid @RequestBody UserRequestDto user){
+
+        var findUser = userServiceImpl.findByUsername(user.getUsername());
+        if(findUser.isEmpty()){
+            throw new UserNotFoundException("User with username " + user.getUsername() + " not found");
+
+        }
+
+        /// Check from the db if  password is the same
+       User dbUser = findUser.get();
+
+       if(!passwordEncoder.matches(user.getPassword(),dbUser.getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+       }
+
+       return ResponseEntity.ok(" Login successful");
+   }
 
     @PostMapping("/user")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody User user){
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserRequestDto user){
 
         /// Check if user already exists
         if(userServiceImpl.findByUsername(user.getUsername()).isPresent()){
@@ -39,7 +65,7 @@ public class UserController {
     }
 
     @PostMapping("/user-admin")
-    public ResponseEntity<?> registerAdminUser(@Valid @RequestBody User user){
+    public ResponseEntity<?> registerAdminUser(@Valid @RequestBody UserRequestDto user){
 
         /// Check if user already exists
         if(userServiceImpl.findByUsername(user.getUsername()).isPresent()){

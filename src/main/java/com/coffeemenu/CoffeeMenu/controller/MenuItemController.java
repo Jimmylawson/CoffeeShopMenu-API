@@ -1,25 +1,22 @@
 package com.coffeemenu.CoffeeMenu.controller;
 
-import com.coffeemenu.CoffeeMenu.dto.MenuItemRequest;
-import com.coffeemenu.CoffeeMenu.dto.MenuItemResponse;
+import com.coffeemenu.CoffeeMenu.dto.menudto.MenuItemRequest;
+import com.coffeemenu.CoffeeMenu.dto.menudto.MenuItemResponse;
 import com.coffeemenu.CoffeeMenu.exception.NotFoundException;
 
 import com.coffeemenu.CoffeeMenu.mapper.MenuItemMapper;
-import com.coffeemenu.CoffeeMenu.model.MenuItem;
-import com.coffeemenu.CoffeeMenu.service.MenuItemServiceImpl;
+import com.coffeemenu.CoffeeMenu.model.menuItem.MenuItem;
+import com.coffeemenu.CoffeeMenu.service.menuService.MenuItemServiceImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
-import org.hibernate.sql.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 

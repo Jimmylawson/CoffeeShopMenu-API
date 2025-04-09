@@ -1,7 +1,6 @@
-package com.coffeemenu.CoffeeMenu.model;
+package com.coffeemenu.CoffeeMenu.model.menuItem;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 

@@ -1,19 +1,17 @@
-package com.coffeemenu.CoffeeMenu.service;
+package com.coffeemenu.CoffeeMenu.service.menuService;
 
 
-import com.coffeemenu.CoffeeMenu.dto.MenuItemRequest;
+import com.coffeemenu.CoffeeMenu.dto.menudto.MenuItemRequest;
 
 import com.coffeemenu.CoffeeMenu.exception.UserNotFoundException;
 import com.coffeemenu.CoffeeMenu.mapper.MenuItemMapper;
-import com.coffeemenu.CoffeeMenu.model.MenuItem;
+import com.coffeemenu.CoffeeMenu.model.menuItem.MenuItem;
 import com.coffeemenu.CoffeeMenu.repository.MenuItemRepository;
 
 import lombok.RequiredArgsConstructor;
 
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
