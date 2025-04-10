@@ -1,10 +1,9 @@
 package com.coffeemenu.CoffeeMenu.controller;
 
+import com.coffeemenu.CoffeeMenu.dto.login.LoginResponse;
+import com.coffeemenu.CoffeeMenu.dto.login.LoginRequest;
 import com.coffeemenu.CoffeeMenu.dto.userdto.UserRequestDto;
-import com.coffeemenu.CoffeeMenu.dto.userdto.UserResponseDto;
-import com.coffeemenu.CoffeeMenu.exception.UserNotFoundException;
 import com.coffeemenu.CoffeeMenu.mapper.UserMapper;
-import com.coffeemenu.CoffeeMenu.model.user.Role;
 import com.coffeemenu.CoffeeMenu.model.user.User;
 import com.coffeemenu.CoffeeMenu.service.userService.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,8 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashSet;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -32,6 +29,7 @@ public class UserController {
    private final PasswordEncoder passwordEncoder;
    private final UserMapper userMapper;
 
+
    @Operation(
            summary = "Login user",
            description = "Authenticate a user with username and password"
@@ -39,14 +37,14 @@ public class UserController {
    @ApiResponse(
            responseCode = "200",
            description = "Login successful"
+
    )
    @PostMapping("/login")
-   public ResponseEntity<?> login(@Valid @RequestBody UserRequestDto user){
-        /// the first line is the service call and the second should be the return call
+   public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){
 
         /// Check from the db if  password is the same
-
-       return ResponseEntity.ok(" Login successful");
+        String token = userServiceImpl.login(loginRequest);
+       return ResponseEntity.ok(new LoginResponse(token));
    }
 
 

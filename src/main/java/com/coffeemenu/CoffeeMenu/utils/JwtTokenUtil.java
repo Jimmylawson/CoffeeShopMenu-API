@@ -22,7 +22,7 @@ public class JwtTokenUtil {
             ApplicationConstants.JWT_SECRET_DEFAULT_VALUE.getBytes(StandardCharsets.UTF_8)
     );
     //will generate a token
-    String generateToken(UserDetails userDetails){
+    public String generateToken(UserDetails userDetails){
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .claim("roles",userDetails.getAuthorities())

@@ -1,6 +1,7 @@
 package com.coffeemenu.CoffeeMenu.securityConfig;
 
 
+import com.coffeemenu.CoffeeMenu.filter.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
 
 
@@ -17,7 +19,7 @@ import org.springframework.security.web.authentication.password.HaveIBeenPwnedRe
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
             http
                     .csrf(c->c.disable())
                     .authorizeHttpRequests(request->request
@@ -29,6 +31,7 @@ public class SecurityConfig {
                             .anyRequest().authenticated()
 
                     )
+                    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                     .formLogin(Customizer.withDefaults())
                     .httpBasic(Customizer.withDefaults());
             return http.build();
