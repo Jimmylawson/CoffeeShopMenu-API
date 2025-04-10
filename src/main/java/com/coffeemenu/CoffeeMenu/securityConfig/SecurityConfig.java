@@ -26,8 +26,8 @@ public class SecurityConfig {
                             .requestMatchers(HttpMethod.GET, "/api/v1/menu-items/**", "/api/v1/users/**"
                                     ).permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/v1/user","/api/v1/login").permitAll()
-                            .requestMatchers("/api/v1/menu-items/**", "/api/v1/user-admin"
-                            ).hasRole("ADMIN")
+                            .requestMatchers("/api/v1/menu-items/**","/api/v1/user-admin"
+                            ).hasAuthority("ADMIN")
                             .anyRequest().authenticated()
 
                     )
@@ -38,10 +38,10 @@ public class SecurityConfig {
     }
 
 
-    @Bean
-    public CompromisedPasswordChecker compromisedPasswordChecker(){
-        return new HaveIBeenPwnedRestApiPasswordChecker();
-    }
+//    @Bean
+//    public CompromisedPasswordChecker compromisedPasswordChecker(){
+//        return new HaveIBeenPwnedRestApiPasswordChecker();
+//    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){

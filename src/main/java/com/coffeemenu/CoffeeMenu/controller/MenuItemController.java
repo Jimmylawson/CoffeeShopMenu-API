@@ -71,6 +71,8 @@ public class MenuItemController {
             @ApiResponse(responseCode = "201", description = "Item created"),
             @ApiResponse(responseCode ="400",description="Invalid input")
     })
+
+
     @PostMapping("")
     public ResponseEntity<MenuItemResponse> createMenuItem(@Valid @RequestBody MenuItemRequest menuItemRequest){
         var menuItem = menuItemService.save(menuItemRequest);
@@ -139,8 +141,6 @@ public class MenuItemController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteItem(@PathVariable Long id){
-        Optional<MenuItem> item = menuItemService.findById(id);
-        if(item.isEmpty()) throw new NotFoundException("Menu item with ID " + id + " not found!");
 
         menuItemService.deleteById(id);
 
