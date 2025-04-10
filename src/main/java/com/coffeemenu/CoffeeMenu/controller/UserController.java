@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -43,21 +44,11 @@ public class UserController {
    public ResponseEntity<?> login(@Valid @RequestBody UserRequestDto user){
         /// the first line is the service call and the second should be the return call
 
-        var findUser = userServiceImpl.findByUsername(user.getUsername());
-        if(findUser.isEmpty()){
-            throw new UserNotFoundException("User with username " + user.getUsername() + " not found");
-
-        }
-
         /// Check from the db if  password is the same
-       User dbUser = findUser.get();
-
-       if(!passwordEncoder.matches(user.getPassword(),dbUser.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-       }
 
        return ResponseEntity.ok(" Login successful");
    }
+
 
    @Operation(
            summary = "Register user",
@@ -69,15 +60,6 @@ public class UserController {
    )
     @PostMapping("/user")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRequestDto user){
-
-        /// Check if user already exists
-        if(userServiceImpl.findByUsername(user.getUsername()).isPresent()){
-            return ResponseEntity.badRequest().body("Username already exist");
-        }
-
-        /// Encode password
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         ///Save the user
         User savedUser = userServiceImpl.save(user);
 
@@ -85,7 +67,7 @@ public class UserController {
     }
     @Operation(
             summary = "Register admin user",
-            description = "Regiseter a new admin user"
+            description = "Register a new admin user"
     )
     @ApiResponses(
             value = {
@@ -97,16 +79,8 @@ public class UserController {
     @PostMapping("/user-admin")
     public ResponseEntity<?> registerAdminUser(@Valid @RequestBody UserRequestDto user){
 
-        /// Check if user already exists
-        if(userServiceImpl.findByUsername(user.getUsername()).isPresent()){
-            return ResponseEntity.badRequest().body("Username already exist");
-        }
-
-        /// Encode password
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         /// Set role to ADMIN
-        user.setRoles(Set.of(Role.ADMIN));
+        var userRoles = new HashSet<>(user.getRoles());
 
         ///Save the user
         User savedUser = userServiceImpl.save(user);
