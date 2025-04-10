@@ -3,15 +3,14 @@ package com.coffeemenu.CoffeeMenu.model.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
 @Entity
 @Table(name="users")
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
