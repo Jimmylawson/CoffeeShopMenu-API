@@ -5,9 +5,11 @@ import com.coffeemenu.CoffeeMenu.filter.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.password.CompromisedPasswordChecker;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,20 +34,27 @@ public class SecurityConfig {
 
                     )
                     .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                    /// To tell spring not to generate the jsession id
+                    .sessionManagement(sessionConfig->sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .formLogin(Customizer.withDefaults())
                     .httpBasic(Customizer.withDefaults());
             return http.build();
     }
 
 
-//    @Bean
-//    public CompromisedPasswordChecker compromisedPasswordChecker(){
-//        return new HaveIBeenPwnedRestApiPasswordChecker();
-//    }
+////    @Bean//    public CompromisedPasswordChecker compromisedPasswordChecker(){
+//    ////
+// return new HaveIBeenPwnedRestApiPasswordChecker();
+////    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+//    @Bean
+//    public AuthenticationManager authenticationManager(){
+//
+//    }
 
 }

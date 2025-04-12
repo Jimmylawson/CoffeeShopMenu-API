@@ -90,6 +90,9 @@ public class UserServiceImpl implements UserService{
         return userMapper.toResponse(user);
     }
 
+
+    /// This is wrong. Use AuthenticationManager to do this part of it.
+    ///
     @Override
     public String login(LoginRequest loginRequest) {
         User user = userRepository.findByUsername(loginRequest.getUsername())
