@@ -13,8 +13,13 @@ import com.coffeemenu.CoffeeMenu.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +34,7 @@ public class UserServiceImpl implements UserService{
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenUtil jwtTokenUtil;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public Optional<User> findById(Long id) {
@@ -95,24 +101,17 @@ public class UserServiceImpl implements UserService{
     ///
     @Override
     public String login(LoginRequest loginRequest) {
-        User user = userRepository.findByUsername(loginRequest.getUsername())
-                .orElseThrow(()-> new UserNotFoundException(
-                        "User with username " + loginRequest.getUsername() + " not found"
-                ));
+        /// Using authentication to authentication the username and generate a token
+        Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
+        /// Going to hold the authentication of the user so the user dont need to login everytime or the lifetime of the login
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        if(!passwordEncoder.matches(loginRequest.getPassword(),user.getPassword())){
-            throw new BadCredentialsException("Invalid password");
-        }
+
+        /// Because the authenticationManager returns an object, we can get the authenticated user from the Authentication
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         /// Generate JWT token
-        return jwtTokenUtil.generateToken(
-                new org.springframework.security.core.userdetails.User(
-                        user.getUsername(),
-                        user.getPassword(),
-                        user.getRoles().stream()
-                                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
-                                .toList())
-        );
+      return jwtTokenUtil.generateToken(userDetails);
 
     }
 
