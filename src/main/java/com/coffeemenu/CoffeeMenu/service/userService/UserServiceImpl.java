@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService{
 
 
     /// This is wrong. Use AuthenticationManager to do this part of it.
-    ///
+
     @Override
     public String login(LoginRequest loginRequest) {
         /// Using authentication to authentication the username and generate a token
