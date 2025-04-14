@@ -35,7 +35,7 @@ public class SecurityConfig {
                     .authorizeHttpRequests(request->request
                             .requestMatchers(HttpMethod.GET, "/api/v1/menu-items/**", "/api/v1/users/**"
                                     ).permitAll()
-                            .requestMatchers(HttpMethod.POST, "/api/v1/user","/api/v1/login").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/v1/user","/api/v1/login","/actuator/health").permitAll()
                             .requestMatchers("/api/v1/menu-items/**","/api/v1/user-admin"
                             ).hasAuthority("ADMIN")
                             .anyRequest().authenticated()

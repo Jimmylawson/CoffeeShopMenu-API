@@ -17,6 +17,7 @@ import java.util.function.Function;
 public class JwtTokenUtil {
 
     private static final long JWT_EXPIRATION = 1000 * 60 * 60 * 10; // 10 hours
+
     // Convert your secret string to bytes (often in UTF-8)
     private static final Key SIGNING_KEY = Keys.hmacShaKeyFor(
             ApplicationConstants.JWT_SECRET_DEFAULT_VALUE.getBytes(StandardCharsets.UTF_8)
