@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService{
     public Optional<User> findByUsername(String username) {
         return Optional.of(
                 userRepository.findByUsername(username)
-                        .orElseThrow(() -> new UserNotFoundException("User with username " + username + " not found"))
+                        .orElseThrow(() -> new UserNotFoundException("Bad Credentials"))
         );
     }
 
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserResponseDto authenticateUser(String username,String rawPassword){
         var user = findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException("User with username " + username + " not found"));
+                .orElseThrow(() -> new UserNotFoundException("Bad Credentials"));
 
         if(!passwordEncoder.matches(rawPassword,user.getPassword())){
             throw  new BadCredentialsException("Invalid password");
@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService{
     public String login(LoginRequest loginRequest) {
         /// Using authentication to authentication the username and generate a token
         Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
-        /// Going to hold the authentication of the user so the user dont need to login everytime or the lifetime of the login
+        /// Going to hold the authentication of the user so the user don't need to login everytime or the lifetime of the login
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
 

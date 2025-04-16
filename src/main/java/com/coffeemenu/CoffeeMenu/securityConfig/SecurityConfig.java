@@ -11,6 +11,7 @@ import org.springframework.security.authentication.password.CompromisedPasswordC
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -32,6 +33,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
             http
                     .csrf(c->c.disable())
+                    .requiresChannel(rcf->rcf.anyRequest().requiresInsecure())
                     .authorizeHttpRequests(request->request
                             .requestMatchers(HttpMethod.GET, "/api/v1/menu-items/**", "/api/v1/users/**"
                                     ).permitAll()
@@ -45,18 +47,19 @@ public class SecurityConfig {
                     /// To tell spring not to generate the JSESSIONID
                     .sessionManagement(sessionConfig->sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .formLogin(Customizer.withDefaults())
-                    .httpBasic(Customizer.withDefaults());
+                    .httpBasic(AbstractHttpConfigurer::disable);
             return http.build();
     }
 
-
-////    @Bean//    public CompromisedPasswordChecker compromisedPasswordChecker(){
-//    ////
-// return new HaveIBeenPwnedRestApiPasswordChecker();
-////    }
+//
+//    @Bean
+//    public CompromisedPasswordChecker compromisedPasswordChecker(){
+//        return new HaveIBeenPwnedRestApiPasswordChecker();
+//   }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
+
         return new BCryptPasswordEncoder();
     }
 
