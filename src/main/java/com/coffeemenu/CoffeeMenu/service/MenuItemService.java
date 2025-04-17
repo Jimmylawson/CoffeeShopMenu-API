@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-
 public class MenuItemService {
     private final MenuItemRepository menuItemRepository;
 
