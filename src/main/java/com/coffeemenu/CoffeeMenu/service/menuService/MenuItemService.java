@@ -1,7 +1,7 @@
 package com.coffeemenu.CoffeeMenu.service.menuService;
 
-import com.coffeemenu.CoffeeMenu.dto.menudto.MenuItemRequest;
-import com.coffeemenu.CoffeeMenu.model.menuItem.MenuItem;
+import com.coffeemenu.CoffeeMenu.web.model.menudto.MenuItemRequest;
+import com.coffeemenu.CoffeeMenu.entity.menuItem.MenuItem;
 
 import java.util.List;
 import java.util.Optional;

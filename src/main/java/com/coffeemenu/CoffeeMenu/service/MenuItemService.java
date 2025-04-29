@@ -1,10 +1,10 @@
 package com.coffeemenu.CoffeeMenu.service;
 
 
-import com.coffeemenu.CoffeeMenu.dto.MenuItemRequest;
 
-import com.coffeemenu.CoffeeMenu.exception.UserNotFoundException;
-import com.coffeemenu.CoffeeMenu.model.MenuItem;
+import com.coffeemenu.CoffeeMenu.web.model.menudto.MenuItemRequest;
+import com.coffeemenu.CoffeeMenu.web.exception.UserNotFoundException;
+import com.coffeemenu.CoffeeMenu.entity.menuItem.MenuItem;
 import com.coffeemenu.CoffeeMenu.repository.MenuItemRepository;
 import lombok.RequiredArgsConstructor;
 

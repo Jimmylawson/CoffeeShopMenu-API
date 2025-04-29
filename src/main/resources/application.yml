@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: CoffeeMenu
+  datasource:
+    url: jdbc:mysql://localhost:3306/coffee_menu?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+      show-sql: true
+      database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+  security:
+    user:
+      name: user
+      password: 123
+  #profiles:
+  #  active: local #Commented out as it was commented in the original file
+
+springdoc:
+  swagger-ui:
+    title: Coffee Menu API Docs
+    path: /swagger-ui.html
+
+logging:
+  level:
+    org.springframework.web: trace
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

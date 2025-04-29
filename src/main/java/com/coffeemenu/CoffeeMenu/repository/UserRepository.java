@@ -1,6 +1,6 @@
 package com.coffeemenu.CoffeeMenu.repository;
 
-import com.coffeemenu.CoffeeMenu.model.user.User;
+import com.coffeemenu.CoffeeMenu.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

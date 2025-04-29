@@ -1,11 +1,11 @@
 package com.coffeemenu.CoffeeMenu.service.menuService;
 
 
-import com.coffeemenu.CoffeeMenu.dto.menudto.MenuItemRequest;
+import com.coffeemenu.CoffeeMenu.web.model.menudto.MenuItemRequest;
 
-import com.coffeemenu.CoffeeMenu.exception.UserNotFoundException;
-import com.coffeemenu.CoffeeMenu.mapper.MenuItemMapper;
-import com.coffeemenu.CoffeeMenu.model.menuItem.MenuItem;
+import com.coffeemenu.CoffeeMenu.web.exception.UserNotFoundException;
+import com.coffeemenu.CoffeeMenu.web.mapper.MenuItemMapper;
+import com.coffeemenu.CoffeeMenu.entity.menuItem.MenuItem;
 import com.coffeemenu.CoffeeMenu.repository.MenuItemRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -31,9 +31,9 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Override
     public MenuItem update(Long id, MenuItemRequest menuItemRequest) {
         var existingItem = menuItemRepository.findById(id)
-                .orElseThrow(()->new UserNotFoundException("User item with ID " + id + " not found"));
+                .orElseThrow(() -> new UserNotFoundException("User item with ID " + id + " not found"));
 
-        menuItemMapper.updateMenuItemFromRequest(menuItemRequest,existingItem);
+        menuItemMapper.updateMenuItemFromRequest(menuItemRequest, existingItem);
 
         return menuItemRepository.save(existingItem);
 
@@ -58,7 +58,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Override
     public void deleteById(Long id) {
         MenuItem item = menuItemRepository.findById(id)
-                .orElseThrow(()->new UserNotFoundException("User item with ID " + id + " not found"));
+                .orElseThrow(() -> new UserNotFoundException("User item with ID " + id + " not found"));
 
         menuItemRepository.deleteById(item.getId());
 
