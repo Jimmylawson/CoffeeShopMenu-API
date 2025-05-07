@@ -2,7 +2,7 @@
 
 ![status](https://img.shields.io/badge/status-in--progress-yellow)
 
-A simple, production-ready RESTful API for managing coffee shop menu items — built with Spring Boot, MySQL, JWT-based security, and documented using Swagger OpenAPI.
+A simple, production-ready RESTFUL  API for managing coffee shop menu items — built with Spring Boot, MySQL, JWT-based security, and documented using Swagger OpenAPI.
 
 ---
 
@@ -74,4 +74,11 @@ To explore and test the API, run the application and visit:
   "available": true
 }
 
+## 🐳 Running with Docker
+
+### 📄 Prerequisites
+- [Docker](https://www.docker.com/products/docker-desktop) installed on your machine
+- Project built with:
+  ```bash
+  ./mvnw clean package
 
